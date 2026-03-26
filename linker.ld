@@ -17,6 +17,17 @@ SECTIONS
     . = 1M;
 
     /*
+    Executable code
+    Put this first so that qemu can find it
+    Solves the "qemu-system-i386: Error loading uncompressed kernel without PVH ELF Note" error
+    */
+    .text BLOCK(4K) : ALIGN(4K)
+    {
+        *(.multiboot)
+        *(.text)
+    }
+
+    /*
     We align all the sections in the executable at multiple of 4 Kilobytes (4K)
     This will be come useful later in development when we add paging
     First put the multiboot header, as it's requierd to be near the start of the executable otherwise the bootloader won't find it
@@ -25,14 +36,6 @@ SECTIONS
     .rodata BLOCK(4K) : ALIGN(4K)
     {
         *(.multiboot)
-    }
-
-    /*
-    Executable code
-    */
-    .text BLOCK(4K) : ALIGN(4K)
-    {
-        *(.text)
     }
 
     /*

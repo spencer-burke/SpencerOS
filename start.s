@@ -68,4 +68,4 @@ call kernel_main
         // Halt the CPU
         hlt
         // Loop and try again
-        jmp hand
+        jmp hang

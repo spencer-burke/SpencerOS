@@ -2,7 +2,7 @@
 The bootloader will start execution at the symbol designated as the entry point
 In this case, that's 'start' (defined in start.s)
 */
-Entry(start)
+ENTRY(start)
 
 /*
 Tell the linker part of the compiler where the various sections of the kernel will be put into the final kernel executable

@@ -31,4 +31,41 @@ Start the section of the executable that will contain the Multiboot header
 // Align the following data to a multiple of 4 bytes
 .align 4
 
-//
+// Use the previously calculated constants in executable code
+.long MB_MAGIC
+.long MB_FLAGS
+.long MB_CHECKSUM
+
+/*
+The section contains data initialized to zeroes when the kernel is loaded
+*/
+.section .bss
+
+// C code needs a stack, so allocated 4096 bytes(4 kilobytes) for the the stack
+// This can be expanded for a larger stack
+.align 16
+stack_bottom:
+    .skip 4096
+stack_top:
+
+// This section contains the assembly code to be run when the kernel loads
+.section .text
+
+// Create the 'start' label for the first code being run by the kernel
+start:
+
+// Set up the stack by setting the stack pointer to the top of the stack
+// Stack grows downward, so set it to the top to give it room
+mov $stack_top, %esp
+
+// Call the main C function
+call kernel_main
+
+// Hang the cpu when the C code runs
+    hang:
+        // Disable CPU interrupts
+        cli
+        // Halt the CPU
+        hlt
+        // Loop and try again
+        jmp hand

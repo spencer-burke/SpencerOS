@@ -30,7 +30,7 @@ void term_init()
         for (int row = 0; row < VGA_ROWS; row++) {
             // Calculate buffer index for character
             const size_t index = (VGA_COLS * row) + col;
-            // Set the character to blanck (a space character)
+            // Set the character to blank (a space character)
             vga_buffer[index] = ((uint16_t)term_color << 8) | ' ';
         }
     }

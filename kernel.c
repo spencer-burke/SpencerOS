@@ -6,7 +6,7 @@
 #if defined(__linux__)
     #error "This code must compiled with a cross-compiler"
 #elif !defined(__i386__)
-    #error "This code must ce compiled with an x86-elf compiler"
+    #error "This code must be compiled with an x86-elf compiler"
 #endif
 
 // This is x86's VGA textmode buffer.

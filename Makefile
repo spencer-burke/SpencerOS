@@ -6,7 +6,7 @@ LDFLAGS = -ffreestanding -nostdlib -g -T linker.ld
 LIBS = -lgcc
 
 # Define the object files
-OBJ = start.o kernel.o
+OBJ = start.o gdt.o kernel.o
 
 # The default rule (first rule is run when you just type 'make')
 all: mykernel.elf

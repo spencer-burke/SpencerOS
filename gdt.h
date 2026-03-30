@@ -1,6 +1,27 @@
 // Include the headers for standard numbers as they are needed to describe the table
 #include <stdint.h>
 
+// Individual bits
+#define GDT_PRESENT (1 << 7)   // segment is valid, must be 1
+#define GDT_RING0 (0 << 5)   // kernel privilege level
+#define GDT_RING3 (3 << 5)   // user privilege level
+#define GDT_DESCRIPTOR (1 << 4)   // code or data segment (not system)
+#define GDT_EXECUTABLE (1 << 3)   // code segment if set, data if not
+#define GDT_READWRITE (1 << 1)   // readable (code) or writable (data)
+
+// Flags nibble
+#define GDT_GRANULARITY (1 << 3)   // limit is in 4K blocks not bytes
+#define GDT_32BIT (1 << 2)   // 32 bit protected mode segment
+
+// Prebuilt access bytes for each segment type
+#define GDT_ACCESS_KERNEL_CODE (GDT_PRESENT | GDT_RING0 | GDT_DESCRIPTOR | GDT_EXECUTABLE | GDT_READWRITE)
+#define GDT_ACCESS_KERNEL_DATA (GDT_PRESENT | GDT_RING0 | GDT_DESCRIPTOR | GDT_READWRITE)
+#define GDT_ACCESS_USER_CODE (GDT_PRESENT | GDT_RING3 | GDT_DESCRIPTOR | GDT_EXECUTABLE | GDT_READWRITE)
+#define GDT_ACCESS_USER_DATA (GDT_PRESENT | GDT_RING3 | GDT_DESCRIPTOR | GDT_READWRITE)
+
+// Prebuilt flags
+#define GDT_FLAGS (GDT_GRANULARITY | GDT_32BIT)
+
 // Define and pack a single entry in the gdt
 typedef struct gdt_entry
 {
@@ -22,3 +43,10 @@ typedef struct gdt
     gdt_entry user_code;
     gdt_entry user_data;
 } __attribute__ ((packed)) gdt_table;
+
+// Define and pack the pointer for the lgdt instruction
+typedef struct gdt_ptr_t
+{
+    uint16_t limit;
+    uint32_t base;
+} __attribute__ ((packed)) gdt_ptr_t;

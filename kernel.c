@@ -2,6 +2,7 @@
 // GCC gives these headers automatically
 #include <stddef.h>
 #include <stdint.h>
+#include "gdt.c"
 
 #if defined(__linux__)
     #error "This code must compiled with a cross-compiler"
@@ -80,6 +81,9 @@ void term_print(const char* str)
 // Kernel main function
 void kernel_main()
 {
+    // Initialize gdt
+    gdt_init();
+
     // Initiate terminal
     term_init();
 

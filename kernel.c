@@ -89,5 +89,5 @@ void kernel_main()
 
     // Display some messages
     term_print("Hello World!\n");
-    term_print("Welcome to the kernel.\n");
+    term_print("Welcome to SpencerOS.\n");
 }

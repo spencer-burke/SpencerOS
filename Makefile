@@ -9,11 +9,11 @@ LIBS = -lgcc
 OBJ = start.o gdt.o load_gdt.o kernel.o
 
 # The default rule (first rule is run when you just type 'make')
-all: mykernel.elf
+all: spencerOS.elf
 
 # Link the kernel
-mykernel.elf: $(OBJ)
-	$(CC) $(LDFLAGS) $(OBJ) -o mykernel.elf $(LIBS)
+spencerOS.elf: $(OBJ)
+	$(CC) $(LDFLAGS) $(OBJ) -o spencerOS.elf $(LIBS)
 
 # Compile C files
 %.o: %.c
@@ -24,9 +24,9 @@ mykernel.elf: $(OBJ)
 	$(AS) $(CFLAGS) $< -o $@
 
 # Run the kernel in QEMU
-run: mykernel.elf
-	qemu-system-i386 -kernel mykernel.elf
+run: spencerOS.elf
+	qemu-system-i386 -kernel spencerOS.elf
 
 # Clean up build files
 clean:
-	rm -f *.o mykernel.elf
+	rm -f *.o spencerOS.elf

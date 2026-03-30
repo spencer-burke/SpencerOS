@@ -50,3 +50,10 @@ typedef struct gdt_ptr_t
     uint16_t limit;
     uint32_t base;
 } __attribute__ ((packed)) gdt_ptr_t;
+
+// Declare the assembly function from gdt.s
+extern void gdt_load(gdt_ptr_t *ptr);
+
+// Declare functions in gdt.c
+void gdt_set_entry(gdt_entry *entry, uint32_t base, uint32_t limit, uint8_t access, uint8_t flags);
+void gdt_init();

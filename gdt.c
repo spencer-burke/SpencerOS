@@ -4,9 +4,6 @@
 gdt_table gdt;
 gdt_ptr_t gdt_ptr;
 
-// Declare teh assembly function from gdt.s
-extern void gdt_load(gdt_ptr_t *ptr);
-
 // Set the values of a single entry in the gdt
 void gdt_set_entry(gdt_entry *entry, uint32_t base, uint32_t limit, uint8_t access, uint8_t flags)
 {

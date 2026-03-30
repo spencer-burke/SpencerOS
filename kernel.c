@@ -2,7 +2,7 @@
 // GCC gives these headers automatically
 #include <stddef.h>
 #include <stdint.h>
-#include "gdt.c"
+#include "gdt.h"
 
 #if defined(__linux__)
     #error "This code must compiled with a cross-compiler"

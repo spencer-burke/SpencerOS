@@ -1,4 +1,5 @@
 #include "idt.h"
+#include "pic.h"
 #include <stdint.h>
 
 idt_table idt;
@@ -33,5 +34,11 @@ void idt_init()
     idt_ptr.limit = sizeof(idt_table) - 1;
     idt_ptr.base = (uint32_t)&idt;
 
-    // Set up any interrupt handlers
+    // Set up any interrupt handlers as they are implemented
+
+    // Initialize the pic
+    pic_init();
+
+    // Make assembly load the idt
+    idt_load(&idt_ptr);
 }

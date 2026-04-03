@@ -3,6 +3,8 @@
 #include <stddef.h>
 #include <stdint.h>
 #include "gdt.h"
+#include "idt.h"
+#include "pic.h"
 
 #if defined(__linux__)
     #error "This code must compiled with a cross-compiler"
@@ -83,6 +85,12 @@ void kernel_main()
 {
     // Initialize gdt
     gdt_init();
+
+    // Initialize pic
+    pic_init();
+
+    // Initialize idt
+    idt_init();
 
     // Initiate terminal
     term_init();

@@ -1,5 +1,4 @@
 #include "idt.h"
-#include "pic.h"
 #include <stdint.h>
 
 idt_table idt;
@@ -21,12 +20,6 @@ void idt_set_entry(uint8_t entry, uint32_t handler, uint16_t selector, uint8_t a
     idt.entries[entry].type_attributes = attributes;
 }
 
-// Remap the PIC
-void pic_init()
-{
-
-}
-
 // Set all values in the idt (currently implemented)
 void idt_init()
 {
@@ -35,9 +28,6 @@ void idt_init()
     idt_ptr.base = (uint32_t)&idt;
 
     // Set up any interrupt handlers as they are implemented
-
-    // Initialize the pic
-    pic_init();
 
     // Make assembly load the idt
     idt_load(&idt_ptr);

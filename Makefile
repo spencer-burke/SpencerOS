@@ -6,7 +6,7 @@ LDFLAGS = -ffreestanding -nostdlib -g -T linker.ld
 LIBS = -lgcc
 
 # Define the object files
-OBJ = start.o gdt.o load_gdt.o kernel.o
+OBJ = start.o gdt.o load_gdt.o idt.o load_idt pic.o kernel.o
 
 # The default rule (first rule is run when you just type 'make')
 all: spencerOS.elf

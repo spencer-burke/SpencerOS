@@ -28,7 +28,6 @@ typedef struct idt_entry
     uint16_t offset_high;
 } __attribute__ ((packed)) idt_entry;
 
-
 // Define and pack the named version of the full table
 typedef struct idt
 {
@@ -43,7 +42,7 @@ typedef struct idt_ptr_t
 } __attribute__ ((packed)) idt_ptr_t;
 
 // Declare the assembly function from idt.s
-extern void idt_Load(idt_ptr_t *ptr);
+extern void idt_load(idt_ptr_t *ptr);
 
 // Declare functions in idt.c
 void pic_init();

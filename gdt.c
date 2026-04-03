@@ -8,7 +8,7 @@ gdt_ptr_t gdt_ptr;
 void gdt_set_entry(gdt_entry *entry, uint32_t base, uint32_t limit, uint8_t access, uint8_t flags)
 {
     /*
-     * base  is 32 bits -> split across base_low (16), base_mid (8), base_high (8)
+     * base is 32 bits -> split across base_low (16), base_mid (8), base_high (8)
      * limit is 20 bits -> split across limit_low (16) and top nibble of limit_high_flags (4)
      * flags is 4 bits  -> packed into top nibble of limit_high_flags
      * ((limit >> 16) & 0x0F)  -> grab bits 19:16 of limit
@@ -25,6 +25,10 @@ void gdt_set_entry(gdt_entry *entry, uint32_t base, uint32_t limit, uint8_t acce
 // Set all values in the gdt
 void gdt_init()
 {
+    // Set up gdt pointer for lgdt
+    gdt_ptr.limit = sizeof(gdt_table) - 1;
+    gdt_ptr.base = (uint32_t)&gdt;
+
     // Set null descriptor
     gdt_set_entry(&gdt.null, 0, 0, 0, 0);
 
@@ -35,10 +39,6 @@ void gdt_init()
     // Set user segments
     gdt_set_entry(&gdt.user_code, 0, 0xFFFFF, GDT_ACCESS_USER_CODE, GDT_FLAGS);
     gdt_set_entry(&gdt.user_data, 0, 0xFFFFF, GDT_ACCESS_USER_DATA, GDT_FLAGS);
-
-    // Set up gdt pointer for lgdt
-    gdt_ptr.limit = sizeof(gdt_table) - 1;
-    gdt_ptr.base = (uint32_t)&gdt;
 
     // Make assembly load the gdt
     gdt_load(&gdt_ptr);

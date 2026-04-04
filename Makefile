@@ -60,3 +60,4 @@ run-iso: $(ISO)
 # Clean
 clean:
 	rm -rf build/ $(TARGET) $(ISO)
+	rm iso/boot/SpencerOS.elf

@@ -1,32 +1,58 @@
-# Variables for compiler and flags
-CC = i686-elf-gcc
-AS = i686-elf-gcc
-CFLAGS = -std=gnu99 -ffreestanding -g -c
-LDFLAGS = -ffreestanding -nostdlib -g -T linker.ld
-LIBS = -lgcc
+# Toolchain
+CC      := i686-elf-gcc
+AS      := i686-elf-gcc
+LD      := i686-elf-gcc
 
-# Define the object files
-OBJ = start.o gdt.o load_gdt.o idt.o load_idt.o pic.o terminal.o kernel.o
+CFLAGS  := -std=gnu99 -ffreestanding -g -Wall -Wextra
+LDFLAGS := -ffreestanding -nostdlib -g -T linker.ld
+LIBS    := -lgcc
 
-# The default rule (first rule is run when you just type 'make')
-all: spencerOS.elf
+ISO     := spencerOS.iso
+TARGET  := spencerOS.elf
 
-# Link the kernel
-spencerOS.elf: $(OBJ)
-	$(CC) $(LDFLAGS) $(OBJ) -o spencerOS.elf $(LIBS)
+# Source collection
+C_SOURCES  := $(shell find kernel arch drivers libk -name "*.c")
+AS_SOURCES := $(shell find kernel arch drivers libk -name "*.s")
 
-# Compile C files
-%.o: %.c
-	$(CC) $(CFLAGS) $< -o $@
+# Object files mirrored under build/
+C_OBJECTS  := $(patsubst %.c, build/%.o, $(C_SOURCES))
+AS_OBJECTS := $(patsubst %.s, build/%.o, $(AS_SOURCES))
 
-# Assemble assembly files (using gcc as the wrapper)
-%.o: %.s
-	$(AS) $(CFLAGS) $< -o $@
+OBJECTS := $(C_OBJECTS) $(AS_OBJECTS)
 
-# Run the kernel in QEMU
-run: spencerOS.elf
-	qemu-system-i386 -kernel spencerOS.elf
+# Include paths
+INCLUDES := -I. -Iarch -Idrivers/vga -Ilibk/include
 
-# Clean up build files
+.PHONY: all iso run clean
+
+all: $(TARGET)
+
+# Link
+$(TARGET): $(OBJECTS)
+	$(LD) $(LDFLAGS) $^ -o $@ $(LIBS)
+
+# Compile .c
+build/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+# Assemble .s
+build/%.o: %.s
+	@mkdir -p $(dir $@)
+	$(AS) $(CFLAGS) -c $< -o $@
+
+# Build ISO
+iso: $(TARGET)
+	cp $(TARGET) iso/boot/spencerOS.elf
+	grub-mkrescue -o $(ISO) iso/
+
+# Run
+run: $(TARGET)
+	qemu-system-i386 -kernel $(TARGET)
+
+run-iso: $(ISO)
+	qemu-system-i386 -cdrom $(ISO)
+
+# Clean
 clean:
-	rm -f *.o spencerOS.elf
+	rm -rf build/ $(TARGET) $(ISO)

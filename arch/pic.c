@@ -1,18 +1,6 @@
 #include "pic.h"
 #include <stdint.h>
 
-// Helper to write a byte to an I/O port
-static inline void outb(uint16_t port, uint8_t value)
-{
-    __asm__ volatile ("outb %0, %1" : : "a"(value), "Nd"(port));
-}
-
-// Helper to create a small delay via a throwaway I/O write (port 0x80 is safe for this)
-static inline void io_wait()
-{
-    __asm__ volatile ("outb %0, $0x80" : : "a"((uint8_t)0));
-}
-
 // Initialize the pic
 void pic_init()
 {

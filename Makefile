@@ -7,8 +7,8 @@ CFLAGS  := -std=gnu99 -ffreestanding -g -Wall -Wextra
 LDFLAGS := -ffreestanding -nostdlib -g -T linker.ld
 LIBS    := -lgcc
 
-ISO     := spencerOS.iso
-TARGET  := spencerOS.elf
+ISO     := SpencerOS.iso
+TARGET  := SpencerOS.elf
 
 # Source collection
 C_SOURCES  := $(shell find kernel arch drivers libk -name "*.c")
@@ -46,7 +46,7 @@ build/%.o: %.s
 
 # Build ISO
 iso: $(TARGET)
-	cp $(TARGET) iso/boot/spencerOS.elf
+	cp $(TARGET) iso/boot/SpencerOS.elf
 	$(GRUB_MKRESCUE) -o $(ISO) iso/
 
 # Run

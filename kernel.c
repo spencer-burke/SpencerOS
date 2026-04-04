@@ -2,7 +2,6 @@
 #include "idt.h"
 #include "pic.h"
 #include "terminal.h"
-// GCC gives these headers automatically
 #include <stddef.h>
 #include <stdint.h>
 
@@ -29,6 +28,5 @@ void kernel_main()
     term_init();
 
     // Display some messages
-    term_print("Hello World!\n");
-    term_print("Welcome to SpencerOS.\n");
+    term_print("SpencerOS initialized....\n");
 }

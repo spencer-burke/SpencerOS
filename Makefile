@@ -23,6 +23,9 @@ OBJECTS := $(C_OBJECTS) $(AS_OBJECTS)
 # Include paths
 INCLUDES := -I. -Iarch -Idrivers/vga -Ilibk/include
 
+# Add the grub-mkrescue prefix
+GRUB_MKRESCUE := i686-elf-grub-mkrescue
+
 .PHONY: all iso run clean
 
 all: $(TARGET)
@@ -44,7 +47,7 @@ build/%.o: %.s
 # Build ISO
 iso: $(TARGET)
 	cp $(TARGET) iso/boot/spencerOS.elf
-	grub-mkrescue -o $(ISO) iso/
+	$(GRUB_MKRESCUE) -o $(ISO) iso/
 
 # Run
 run: $(TARGET)

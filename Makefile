@@ -53,6 +53,7 @@ iso: $(TARGET)
 run: $(TARGET)
 	qemu-system-i386 -kernel $(TARGET)
 
+# Run ISO
 run-iso: $(ISO)
 	qemu-system-i386 -cdrom $(ISO)
 

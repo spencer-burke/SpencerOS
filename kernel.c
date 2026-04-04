@@ -11,7 +11,6 @@
     #error "This code must be compiled with an x86-elf compiler"
 #endif
 
-
 // Kernel main function
 void kernel_main()
 {

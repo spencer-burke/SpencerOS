@@ -24,7 +24,6 @@ void idt_set_entry(uint8_t entry, uint32_t handler, uint16_t selector, uint8_t a
 // Set all values in the idt (currently implemented)
 void idt_init()
 {
-
     // Set up the idt pointer for lidt
     idt_ptr.limit = sizeof(idt_table) - 1;
     idt_ptr.base = (uint32_t)&idt;

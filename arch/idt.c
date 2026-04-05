@@ -30,7 +30,6 @@ void idt_init()
     idt_ptr.base = (uint32_t)&idt;
 
     // Set up any interrupt handlers as they are implemented
-    idt_set_entry(9, (uint32_t)keyboard_isr, 0x08, IDT_ATTR_KERNEL_INT);   // old vector
     idt_set_entry(33, (uint32_t)keyboard_isr, 0x08, IDT_ATTR_KERNEL_INT);
 
     // Make assembly load the idt

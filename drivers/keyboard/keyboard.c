@@ -17,7 +17,6 @@ static const char scancode_table[128] = {
 // Keyboard handler for when IRQ1 fires
 void keyboard_handler()
 {
-    term_print("IRQ\n");
     uint8_t scancode = inb(KEYBOARD_DATA_PORT);
 
     // Bit 7 means key release so ignore it

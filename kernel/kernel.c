@@ -17,11 +17,11 @@ void kernel_main()
     // Initialize gdt
     gdt_init();
 
-    // Initialize pic
-    pic_init();
-
     // Initialize idt
     idt_init();
+
+    // Initialize pic
+    pic_init();
 
     // Initiate terminal
     term_init();

@@ -44,6 +44,9 @@ typedef struct idt_ptr_t
 // Declare the assembly function from idt.s
 extern void idt_load(idt_ptr_t *ptr);
 
+// Declare the assembly function from keyboard.h
+extern void keyboard_isr();
+
 // Declare functions in idt.c
 void pic_init();
 void idt_set_entry(uint8_t entry, uint32_t handler, uint16_t selector, uint8_t attributes);

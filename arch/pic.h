@@ -34,8 +34,11 @@ static inline uint8_t inb(uint16_t port)
     return value;
 }
 
-// scan code for irq handler:
-// uint8_t scancode = inb(0x60);
+// Helper to call the sti instruction to enable interrupts (for the hardware drivers) 
+static inline void sti_enable()
+{
+    __asm__ volatile ("sti");
+}
 
 // Declare the function in the pic.c
 void pic_init();

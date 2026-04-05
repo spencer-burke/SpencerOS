@@ -21,7 +21,7 @@ AS_OBJECTS := $(patsubst %.s, build/%.o, $(AS_SOURCES))
 OBJECTS := $(C_OBJECTS) $(AS_OBJECTS)
 
 # Include paths
-INCLUDES := -I. -Iarch -Idrivers/vga -Ilibk/include
+INCLUDES := -I. -Iarch -Idrivers/vga -Idrivers/keyboard -Ilibk/include
 
 # Add the grub-mkrescue prefix
 GRUB_MKRESCUE := i686-elf-grub-mkrescue
@@ -30,9 +30,9 @@ GRUB_MKRESCUE := i686-elf-grub-mkrescue
 
 all: $(TARGET)
 
-# Link
+# Link — start.o must be first
 $(TARGET): $(OBJECTS)
-	$(LD) $(LDFLAGS) $^ -o $@ $(LIBS)
+	$(LD) $(LDFLAGS) build/kernel/start.o $(filter-out build/kernel/start.o, $^) -o $@ $(LIBS)
 
 # Compile .c
 build/%.o: %.c

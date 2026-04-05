@@ -26,6 +26,9 @@ void kernel_main()
     // Initiate terminal
     term_init();
 
+    // Enable interrupts for keyboard
+    sti_enable();
+
     // Display some messages
     term_print("SpencerOS initialized....\n");
 }

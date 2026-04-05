@@ -26,6 +26,7 @@ void term_init()
     }
 }
 
+// Place a single character on the screen by modifying the text buffer
 void term_putc(char c)
 {
     switch(c) {

@@ -26,5 +26,16 @@ static inline void io_wait()
     __asm__ volatile ("outb %0, $0x80" : : "a"((uint8_t)0));
 }
 
+// Helper to read a byte from an I/O port
+static inline uint8_t inb(uint16_t port)
+{
+    uint8_t value;
+    __asm__ volatile ("inb %1, %0" : "=a"(value) : "Nd"(port));
+    return value;
+}
+
+// scan code for irq handler:
+// uint8_t scancode = inb(0x60);
+
 // Declare the function in the pic.c
 void pic_init();

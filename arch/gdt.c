@@ -10,9 +10,9 @@ void gdt_set_entry(gdt_entry *entry, uint32_t base, uint32_t limit, uint8_t acce
     /*
      * base is 32 bits -> split across base_low (16), base_mid (8), base_high (8)
      * limit is 20 bits -> split across limit_low (16) and top nibble of limit_high_flags (4)
-     * flags is 4 bits  -> packed into top nibble of limit_high_flags
-     * ((limit >> 16) & 0x0F)  -> grab bits 19:16 of limit
-     * | (flags << 4)          -> shift flags into top nibble
+     * flags is 4 bits -> packed into top nibble of limit_high_flags
+     * ((limit >> 16) & 0x0F) -> grab bits 19:16 of limit
+     * | (flags << 4) -> shift flags into top nibble
      */
     entry->base_low = base & 0xFFFF;
     entry->base_mid = (base >> 16) & 0xFF;

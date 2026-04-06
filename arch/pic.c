@@ -20,10 +20,9 @@ void pic_init()
     outb(PIC_MASTER_DATA, ICW4_8086); io_wait();
     outb(PIC_SLAVE_DATA, ICW4_8086); io_wait();
 
-    // Unmask all IRQs on both PICs (0x00 = all enabled)
-    /// outb(PIC_MASTER_DATA, 0x00);
-    /// outb(PIC_SLAVE_DATA, 0x00);
-
-    outb(PIC_MASTER_DATA, 0xFD); // 11111101 - only unmask IRQ1
-    outb(PIC_SLAVE_DATA, 0xFF);  // mask everything on slave
+    // Unmask IRQ1 on master and mask everything on slave
+    // 11111101 - only unmask IRQ1
+    outb(PIC_MASTER_DATA, 0xFD);
+    // mask everything on slave
+    outb(PIC_SLAVE_DATA, 0xFF);
 }

@@ -1,3 +1,6 @@
+#ifndef PIC_H
+#define PIC_H
+
 #include <stdint.h>
 
 #define PIC_MASTER_CMD 0x20
@@ -42,3 +45,5 @@ static inline void sti_enable()
 
 // Declare the function in the pic.c
 void pic_init();
+
+#endif

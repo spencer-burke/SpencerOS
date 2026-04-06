@@ -1,3 +1,6 @@
+#ifndef TERMINAL_H
+#define TERMINAL_H
+
 #include <stdint.h>
 
 extern volatile uint16_t* vga_buffer;
@@ -13,3 +16,6 @@ extern uint8_t term_color;
 void term_init();
 void term_putc(char c);
 void term_print(const char* str);
+void term_print_hex(uint32_t value);
+
+#endif

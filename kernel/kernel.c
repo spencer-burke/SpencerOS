@@ -17,18 +17,23 @@ void kernel_main()
     // Initialize gdt
     gdt_init();
 
-    // Initialize idt
-    idt_init();
+    // Initiate terminal
+    term_init();
 
     // Initialize pic
     pic_init();
 
-    // Initiate terminal
-    term_init();
+    // Initialize idt
+    idt_init();
 
     // Enable interrupts for keyboard
     sti_enable();
 
     // Display some messages
     term_print("SpencerOS initialized....\n");
+
+    // Add a halt to keep interrupts going
+    while(1) {
+        __asm__ volatile ("hlt");
+    }
 }

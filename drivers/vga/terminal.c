@@ -67,3 +67,17 @@ void term_print(const char* str)
         term_putc(str[i]);
     }
 }
+
+void term_print_hex(uint32_t value)
+{
+    char hex_chars[] = "0123456789ABCDEF";
+    char buf[11]; // "0x" + 8 hex digits + null
+    buf[0] = '0';
+    buf[1] = 'x';
+    buf[10] = '\0';
+    for (int i = 9; i >= 2; i--) {
+        buf[i] = hex_chars[value & 0xF];
+        value >>= 4;
+    }
+    term_print(buf);
+}

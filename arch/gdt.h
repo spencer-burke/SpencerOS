@@ -1,3 +1,6 @@
+#ifndef GDT_H
+#define GDT_H
+
 // Include the headers for standard numbers as they are needed to describe the table
 #include <stdint.h>
 
@@ -57,3 +60,5 @@ extern void gdt_load(gdt_ptr_t *ptr);
 // Declare functions in gdt.c
 void gdt_set_entry(gdt_entry *entry, uint32_t base, uint32_t limit, uint8_t access, uint8_t flags);
 void gdt_init();
+
+#endif

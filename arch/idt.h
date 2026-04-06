@@ -1,3 +1,6 @@
+#ifndef IDT_H
+#define IDT_H
+
 #include <stdint.h>
 
 // Total number of idt entries (one per interrupt vector)
@@ -51,3 +54,5 @@ extern void keyboard_isr();
 void pic_init();
 void idt_set_entry(uint8_t entry, uint32_t handler, uint16_t selector, uint8_t attributes);
 void idt_init();
+
+#endif

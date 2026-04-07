@@ -8,7 +8,7 @@
 
 // Type/attribute bits (access byte)
 #define IDT_PRESENT (1 << 7) // entry is valid
-#define IDT_RING0 (0 << 5) // kernel privelege
+#define IDT_RING0 (0 << 5) // kernel privilege
 #define IDT_RING3 (3 << 5) // user privelege (e.g. syscall gate)
 
 // Gate types (lower nibble of attribute byte)

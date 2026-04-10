@@ -22,8 +22,7 @@
 #define IDT_ATTR_USER_INT    (IDT_PRESENT | IDT_RING3 | IDT_INT_GATE)
 
 // Define and pack a single entry in the idt
-typedef struct idt_entry
-{
+typedef struct idt_entry {
     uint16_t offset_low;
     uint16_t selector;
     uint8_t zero;
@@ -32,14 +31,12 @@ typedef struct idt_entry
 } __attribute__ ((packed)) idt_entry;
 
 // Define and pack the named version of the full table
-typedef struct idt
-{
+typedef struct idt {
     idt_entry entries[IDT_ENTRIES];
 } __attribute__ ((packed)) idt_table;
 
 // Define and pack the pointer for the lidt instruction
-typedef struct idt_ptr_t
-{
+typedef struct idt_ptr_t {
     uint16_t limit;
     uint32_t base;
 } __attribute__ ((packed)) idt_ptr_t;

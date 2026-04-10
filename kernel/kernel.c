@@ -12,8 +12,7 @@
 #endif
 
 // Kernel main function
-void kernel_main()
-{
+void kernel_main() {
     // Initialize gdt
     gdt_init();
 

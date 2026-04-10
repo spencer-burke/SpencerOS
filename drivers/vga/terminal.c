@@ -14,8 +14,7 @@ uint8_t term_row = 0;
 uint8_t term_color = 0x0F;
 
 // This function initiates the terminal by clearing it
-void term_init()
-{
+void term_init() {
     for (int col = 0; col < VGA_COLS; col++) {
         for (int row = 0; row < VGA_ROWS; row++) {
             // Calculate buffer index for character
@@ -27,8 +26,7 @@ void term_init()
 }
 
 // Place a single character on the screen by modifying the text buffer
-void term_putc(char c)
-{
+void term_putc(char c) {
     switch(c) {
         // Newline characters should return the column to 0, and increment the row
         case '\n': {
@@ -60,16 +58,14 @@ void term_putc(char c)
 }
 
 // Print an entire string onto the screen
-void term_print(const char* str)
-{
+void term_print(const char* str) {
     // Keep placing characters until it hits the null-terminating character ('\0)
     for (size_t i = 0; str[i] != '\0'; i++) {
         term_putc(str[i]);
     }
 }
 
-void term_print_hex(uint32_t value)
-{
+void term_print_hex(uint32_t value) {
     char hex_chars[] = "0123456789ABCDEF";
     char buf[11]; // "0x" + 8 hex digits + null
     buf[0] = '0';

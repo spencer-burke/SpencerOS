@@ -5,8 +5,7 @@ gdt_table gdt;
 gdt_ptr_t gdt_ptr;
 
 // Set the values of a single entry in the gdt
-void gdt_set_entry(gdt_entry *entry, uint32_t base, uint32_t limit, uint8_t access, uint8_t flags)
-{
+void gdt_set_entry(gdt_entry *entry, uint32_t base, uint32_t limit, uint8_t access, uint8_t flags) {
     /*
      * base is 32 bits -> split across base_low (16), base_mid (8), base_high (8)
      * limit is 20 bits -> split across limit_low (16) and top nibble of limit_high_flags (4)
@@ -23,8 +22,7 @@ void gdt_set_entry(gdt_entry *entry, uint32_t base, uint32_t limit, uint8_t acce
 }
 
 // Set all values in the gdt
-void gdt_init()
-{
+void gdt_init() {
     // Set up gdt pointer for lgdt
     gdt_ptr.limit = sizeof(gdt_table) - 1;
     gdt_ptr.base = (uint32_t)&gdt;

@@ -2,8 +2,7 @@
 #include <stdint.h>
 
 // Initialize the pic
-void pic_init()
-{
+void pic_init() {
     // ICW1 tell both PICs to start initialization
     outb(PIC_MASTER_CMD, ICW1_INIT | ICW1_ICW4); io_wait();
     outb(PIC_SLAVE_CMD, ICW1_INIT | ICW1_ICW4); io_wait();
